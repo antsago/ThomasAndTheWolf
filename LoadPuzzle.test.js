@@ -134,4 +134,13 @@ describe("Load puzzle", () => {
 
     expect(state).toEqual(expected);
   });
+
+  test("Throws if characters are in not in a cell", () => {
+    const { puzzle } = samplePuzzle({
+      wolf: { row: 99, column: 99 },
+      thomas: { row: 99, column: 99 },
+    });
+
+    expect(loadPuzzle(puzzle)).toThrow();
+  });
 });
