@@ -27,15 +27,25 @@ function createLayout(layout) {
 }
 
 function loadPuzzle(puzzle) {
-  // Run input through some schema like yup or joi
+  // Run input through some schema validator like yup or joi
+
+  const { thomas, wolf } = puzzle;
+  const layout = createLayout(puzzle.layout);
+
+  const thomasIsInGrid = !!layout[thomas.row]?.[thomas.column];
+  const wolfIsInGrid = !!layout[wolf.row]?.[wolf.column];
+
+  if (!thomasIsInGrid || !wolfIsInGrid) {
+    throw new Error("Thomas and the wolf must be in the grid");
+  }
 
   return {
     name: puzzle.name,
-    thomas: puzzle.thomas,
-    wolf: puzzle.wolf,
+    thomas,
+    wolf,
     isThomasTurn: true,
     thomasState: "running",
-    layout: createLayout(puzzle.layout),
+    layout,
   };
 }
 

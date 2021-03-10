@@ -46,6 +46,7 @@ describe("Load puzzle", () => {
   });
 
   test("Handles non 1 initial rows and columns", () => {
+    const thomas = { row: 3, column: 3 };
     const layout = [
       { row: 3, column: 3, borders: "T" },
       { row: 3, column: 2, borders: "TR" },
@@ -55,6 +56,7 @@ describe("Load puzzle", () => {
     const { puzzle, expected } = samplePuzzle(
       {
         layout,
+        thomas,
       },
       {
         layout: {
@@ -67,6 +69,7 @@ describe("Load puzzle", () => {
             2: layout[3],
           },
         },
+        thomas,
       }
     );
 
@@ -77,11 +80,11 @@ describe("Load puzzle", () => {
 
   test("Handles non rectangular grid", () => {
     const layout = [
-      { row: 1, column: 1, borders: "T" },
-      { row: 1, column: 2, borders: "TRB" },
-      { row: 2, column: 1, borders: "LR" },
-      { row: 3, column: 1, borders: "LB" },
-      { row: 3, column: 2, borders: "BRT" },
+      { row: 1, column: 1, borders: "TB" },
+      { row: 1, column: 2, borders: "TR" },
+      { row: 2, column: 2, borders: "LR" },
+      { row: 3, column: 1, borders: "BLT" },
+      { row: 3, column: 2, borders: "RB" },
     ];
     const { puzzle, expected } = samplePuzzle(
       {
@@ -94,7 +97,7 @@ describe("Load puzzle", () => {
             2: layout[1],
           },
           2: {
-            1: layout[2],
+            2: layout[2],
           },
           3: {
             1: layout[3],
@@ -141,6 +144,6 @@ describe("Load puzzle", () => {
       thomas: { row: 99, column: 99 },
     });
 
-    expect(loadPuzzle(puzzle)).toThrow();
+    expect(() => loadPuzzle(puzzle)).toThrow();
   });
 });
