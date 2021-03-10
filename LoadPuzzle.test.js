@@ -74,4 +74,38 @@ describe("Load puzzle", () => {
 
     expect(state).toEqual(expected);
   });
+
+  test("Handles non rectangular grid", () => {
+    const layout = [
+      { row: 1, column: 1, borders: "T" },
+      { row: 1, column: 2, borders: "TRB" },
+      { row: 2, column: 1, borders: "LR" },
+      { row: 3, column: 1, borders: "LB" },
+      { row: 3, column: 2, borders: "BRT" },
+    ];
+    const { puzzle, expected } = samplePuzzle(
+      {
+        layout,
+      },
+      {
+        layout: {
+          1: {
+            1: layout[0],
+            2: layout[1],
+          },
+          2: {
+            1: layout[2],
+          },
+          3: {
+            1: layout[3],
+            2: layout[4],
+          },
+        },
+      }
+    );
+
+    const state = loadPuzzle(puzzle);
+
+    expect(state).toEqual(expected);
+  });
 });

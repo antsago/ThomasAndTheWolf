@@ -27,6 +27,7 @@ function createLayout(layout) {
 }
 
 function loadPuzzle(puzzle) {
+  // Run input through some schema like yup or joi
   return {
     name: puzzle.name,
     thomas: puzzle.thomas,
