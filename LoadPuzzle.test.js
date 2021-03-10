@@ -36,6 +36,9 @@ function samplePuzzle(customPuzzle, customExpected) {
   return { puzzle, expected };
 }
 
+// Most of these tests should be extracted to a
+// PuzzleBuilder.test along with new ones to test
+// the new api combinations (e.g. adding thomas and then changing the cells)
 describe("Load puzzle", () => {
   test("Handles base puzzle", () => {
     const { puzzle, expected } = samplePuzzle();
