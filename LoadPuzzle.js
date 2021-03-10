@@ -20,24 +20,14 @@ function loadPuzzle(puzzle) {
     wolf: puzzle.wolf,
     isThomasTurn: true,
     thomasState: "running",
-    layout: puzzle.layout.reduce((rows, rowCell) => {
-      if (rowCell.row in rows) {
+    layout: puzzle.layout.reduce((rows, cell) => {
+      if (cell.row in rows) {
         return rows;
       }
 
       return {
         ...rows,
-        [rowCell.row]: puzzle.layout
-          .filter((cell) => cell.row === rowCell.row)
-          .reduce((columns, columnCell) => {
-            if (columnCell.column in columnCell) {
-              return columns;
-            }
-            return {
-              ...columns,
-              [columnCell.column]: columnCell,
-            };
-          }, {}),
+        [cell.row]: createColumnsOfRow(puzzle.layout, cell.row),
       };
     }, {}),
   };
