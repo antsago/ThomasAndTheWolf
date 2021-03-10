@@ -108,4 +108,30 @@ describe("Load puzzle", () => {
 
     expect(state).toEqual(expected);
   });
+
+  test("Handles non connected cells", () => {
+    const layout = [
+      { row: 1, column: 1, borders: "" },
+      { row: 2, column: 2, borders: "" },
+    ];
+    const { puzzle, expected } = samplePuzzle(
+      {
+        layout,
+      },
+      {
+        layout: {
+          1: {
+            1: layout[0],
+          },
+          2: {
+            2: layout[1],
+          },
+        },
+      }
+    );
+
+    const state = loadPuzzle(puzzle);
+
+    expect(state).toEqual(expected);
+  });
 });
