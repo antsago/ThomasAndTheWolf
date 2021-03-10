@@ -1,12 +1,4 @@
-function loadPuzzle(puzzle) {
-  return {
-    name: puzzle.name,
-    thomas: puzzle.thomas,
-    wolf: puzzle.wolf,
-    isThomasTurn: true,
-    thomasState: "running",
-  };
-}
+import loadPuzzle from "./LoadPuzzle";
 
 describe("Load puzzle", () => {
   test("Returns basic information", () => {
