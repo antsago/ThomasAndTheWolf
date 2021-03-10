@@ -48,10 +48,10 @@ describe("Load puzzle", () => {
   test("Handles non 1 initial rows and columns", () => {
     const wolf = { row: 3, column: 3 };
     const layout = [
-      { row: 3, column: 3, borders: "" },
-      { row: 3, column: 2, borders: "" },
-      { row: 2, column: 3, borders: "" },
-      { row: 2, column: 2, borders: "" },
+      { row: 3, column: 3, borders: "RB" },
+      { row: 3, column: 2, borders: "LB" },
+      { row: 2, column: 3, borders: "TR" },
+      { row: 2, column: 2, borders: "LT" },
     ];
     const { puzzle, expected } = samplePuzzle(
       {
@@ -61,12 +61,12 @@ describe("Load puzzle", () => {
       {
         layout: {
           3: {
-            3: { ...layout[0], isExit: true },
-            2: { ...layout[1], isExit: true },
+            3: { ...layout[0], isExit: false },
+            2: { ...layout[1], isExit: false },
           },
           2: {
-            3: { ...layout[2], isExit: true },
-            2: { ...layout[3], isExit: true },
+            3: { ...layout[2], isExit: false },
+            2: { ...layout[3], isExit: false },
           },
         },
         wolf,
@@ -115,7 +115,7 @@ describe("Load puzzle", () => {
   test("Handles non connected cells", () => {
     const layout = [
       { row: 1, column: 1, borders: "" },
-      { row: 2, column: 2, borders: "" },
+      { row: 2, column: 2, borders: "TBLR" },
     ];
     const { puzzle, expected } = samplePuzzle(
       {
@@ -127,7 +127,7 @@ describe("Load puzzle", () => {
             1: { ...layout[0], isExit: true },
           },
           2: {
-            2: { ...layout[1], isExit: true },
+            2: { ...layout[1], isExit: false },
           },
         },
       }

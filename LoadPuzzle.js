@@ -70,19 +70,30 @@ function getPlayersPosition(puzzle, layout) {
   return { thomas, wolf };
 }
 
+function getThomasState(layout, thomas, wolf) {
+  if (layout[thomas.row][thomas.column].isExit) {
+    return "escaped";
+  }
+  if (thomas.row === wolf.row && thomas.column === wolf.column) {
+    return "eaten";
+  }
+  return "running";
+}
+
 function loadPuzzle(puzzle) {
   // Run input through some schema validator like yup or joi
 
   const layout = createLayout(puzzle.layout);
 
   const { thomas, wolf } = getPlayersPosition(puzzle, layout);
+  const thomasState = getThomasState(layout, thomas, wolf);
 
   return {
     name: puzzle.name,
     thomas,
     wolf,
     isThomasTurn: true,
-    thomasState: "running",
+    thomasState,
     layout,
   };
 }
