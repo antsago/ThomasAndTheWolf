@@ -3,8 +3,8 @@ import loadPuzzle from "./LoadPuzzle";
 function samplePuzzle(customPuzzle, customExpected) {
   const puzzle = {
     name: "puzzle1",
-    wolf: { row: 2, column: 2 },
-    thomas: { row: 1, column: 1 },
+    thomas: { row: 2, column: 2 },
+    wolf: { row: 1, column: 1 },
     layout: [
       { row: 1, column: 1, borders: "T" },
       { row: 1, column: 2, borders: "TR" },
@@ -37,7 +37,7 @@ function samplePuzzle(customPuzzle, customExpected) {
 }
 
 describe("Load puzzle", () => {
-  test("Returns basic information", () => {
+  test("Handles base puzzle", () => {
     const { puzzle, expected } = samplePuzzle();
 
     const state = loadPuzzle(puzzle);
@@ -46,7 +46,7 @@ describe("Load puzzle", () => {
   });
 
   test("Handles non 1 initial rows and columns", () => {
-    const thomas = { row: 3, column: 3 };
+    const wolf = { row: 3, column: 3 };
     const layout = [
       { row: 3, column: 3, borders: "" },
       { row: 3, column: 2, borders: "" },
@@ -56,7 +56,7 @@ describe("Load puzzle", () => {
     const { puzzle, expected } = samplePuzzle(
       {
         layout,
-        thomas,
+        wolf,
       },
       {
         layout: {
@@ -69,7 +69,7 @@ describe("Load puzzle", () => {
             2: { ...layout[3], isExit: true },
           },
         },
-        thomas,
+        wolf,
       }
     );
 
@@ -145,5 +145,39 @@ describe("Load puzzle", () => {
     });
 
     expect(() => loadPuzzle(puzzle)).toThrow();
+  });
+
+  test("If thomas is in an exit, he's escaped", () => {
+    const thomas = { row: 1, column: 1 };
+    const { puzzle, expected } = samplePuzzle(
+      {
+        thomas,
+      },
+      {
+        thomas,
+        thomasState: "escaped",
+      }
+    );
+
+    const state = loadPuzzle(puzzle);
+
+    expect(state).toEqual(expected);
+  });
+
+  test("If wolf is on Thomas, he's eaten", () => {
+    const wolf = { row: 2, column: 2 };
+    const { puzzle, expected } = samplePuzzle(
+      {
+        wolf,
+      },
+      {
+        wolf,
+        thomasState: "eaten",
+      }
+    );
+
+    const state = loadPuzzle(puzzle);
+
+    expect(state).toEqual(expected);
   });
 });
