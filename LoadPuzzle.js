@@ -57,11 +57,8 @@ function createLayout(layout) {
   return findExits(cells);
 }
 
-function loadPuzzle(puzzle) {
-  // Run input through some schema validator like yup or joi
-
+function getPlayersPosition(puzzle, layout) {
   const { thomas, wolf } = puzzle;
-  const layout = createLayout(puzzle.layout);
 
   const thomasIsInGrid = !!layout[thomas.row]?.[thomas.column];
   const wolfIsInGrid = !!layout[wolf.row]?.[wolf.column];
@@ -69,6 +66,16 @@ function loadPuzzle(puzzle) {
   if (!thomasIsInGrid || !wolfIsInGrid) {
     throw new Error("Thomas and the wolf must be in the grid");
   }
+
+  return { thomas, wolf };
+}
+
+function loadPuzzle(puzzle) {
+  // Run input through some schema validator like yup or joi
+
+  const layout = createLayout(puzzle.layout);
+
+  const { thomas, wolf } = getPlayersPosition(puzzle, layout);
 
   return {
     name: puzzle.name,
