@@ -13,7 +13,7 @@ function createColumnsOfRow(layout, rowNumber) {
     }, {});
 }
 
-function createLayout(layout) {
+function createCells(layout) {
   return layout.reduce((rows, cell) => {
     if (cell.row in rows) {
       return rows;
@@ -24,6 +24,37 @@ function createLayout(layout) {
       [cell.row]: createColumnsOfRow(layout, cell.row),
     };
   }, {});
+}
+
+function findExits(cells) {
+  const cellsWithExit = {};
+
+  Object.keys(cells)
+    .map((row) => parseInt(row, 10))
+    .forEach((row) =>
+      Object.keys(cells[row])
+        .map((column) => parseInt(column, 10))
+        .forEach((column) => {
+          const cell = cells[row][column];
+          const isExit =
+            (!cell.borders.includes("T") && !cells[row - 1]?.[column]) ||
+            (!cell.borders.includes("B") && !cells[row + 1]?.[column]) ||
+            (!cell.borders.includes("L") && !cells[row]?.[column - 1]) ||
+            (!cell.borders.includes("R") && !cells[row]?.[column + 1]);
+
+          if (!(row in cellsWithExit)) {
+            cellsWithExit[row] = {};
+          }
+          cellsWithExit[row][column] = { ...cell, isExit };
+        })
+    );
+
+  return cellsWithExit;
+}
+
+function createLayout(layout) {
+  const cells = createCells(layout);
+  return findExits(cells);
 }
 
 function loadPuzzle(puzzle) {
