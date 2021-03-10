@@ -22,12 +22,12 @@ function samplePuzzle(customPuzzle, customExpected) {
     thomasState: "running",
     layout: {
       1: {
-        1: puzzle.layout[0],
-        2: puzzle.layout[1],
+        1: { ...puzzle.layout[0], isExit: true },
+        2: { ...puzzle.layout[1], isExit: false },
       },
       2: {
-        1: puzzle.layout[2],
-        2: puzzle.layout[3],
+        1: { ...puzzle.layout[2], isExit: false },
+        2: { ...puzzle.layout[3], isExit: false },
       },
     },
     ...customExpected,
@@ -48,10 +48,10 @@ describe("Load puzzle", () => {
   test("Handles non 1 initial rows and columns", () => {
     const thomas = { row: 3, column: 3 };
     const layout = [
-      { row: 3, column: 3, borders: "T" },
-      { row: 3, column: 2, borders: "TR" },
-      { row: 2, column: 3, borders: "LB" },
-      { row: 2, column: 2, borders: "BR" },
+      { row: 3, column: 3, borders: "" },
+      { row: 3, column: 2, borders: "" },
+      { row: 2, column: 3, borders: "" },
+      { row: 2, column: 2, borders: "" },
     ];
     const { puzzle, expected } = samplePuzzle(
       {
@@ -61,12 +61,12 @@ describe("Load puzzle", () => {
       {
         layout: {
           3: {
-            3: layout[0],
-            2: layout[1],
+            3: { ...layout[0], isExit: true },
+            2: { ...layout[1], isExit: true },
           },
           2: {
-            3: layout[2],
-            2: layout[3],
+            3: { ...layout[2], isExit: true },
+            2: { ...layout[3], isExit: true },
           },
         },
         thomas,
@@ -93,15 +93,15 @@ describe("Load puzzle", () => {
       {
         layout: {
           1: {
-            1: layout[0],
-            2: layout[1],
+            1: { ...layout[0], isExit: true },
+            2: { ...layout[1], isExit: false },
           },
           2: {
-            2: layout[2],
+            2: { ...layout[2], isExit: false },
           },
           3: {
-            1: layout[3],
-            2: layout[4],
+            1: { ...layout[3], isExit: false },
+            2: { ...layout[4], isExit: false },
           },
         },
       }
@@ -124,10 +124,10 @@ describe("Load puzzle", () => {
       {
         layout: {
           1: {
-            1: layout[0],
+            1: { ...layout[0], isExit: true },
           },
           2: {
-            2: layout[1],
+            2: { ...layout[1], isExit: true },
           },
         },
       }
