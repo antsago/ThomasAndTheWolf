@@ -13,6 +13,19 @@ function createColumnsOfRow(layout, rowNumber) {
     }, {});
 }
 
+function createLayout(layout) {
+  return layout.reduce((rows, cell) => {
+    if (cell.row in rows) {
+      return rows;
+    }
+
+    return {
+      ...rows,
+      [cell.row]: createColumnsOfRow(layout, cell.row),
+    };
+  }, {});
+}
+
 function loadPuzzle(puzzle) {
   return {
     name: puzzle.name,
@@ -20,16 +33,7 @@ function loadPuzzle(puzzle) {
     wolf: puzzle.wolf,
     isThomasTurn: true,
     thomasState: "running",
-    layout: puzzle.layout.reduce((rows, cell) => {
-      if (cell.row in rows) {
-        return rows;
-      }
-
-      return {
-        ...rows,
-        [cell.row]: createColumnsOfRow(puzzle.layout, cell.row),
-      };
-    }, {}),
+    layout: createLayout(puzzle.layout),
   };
 }
 
