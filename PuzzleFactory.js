@@ -9,8 +9,7 @@ class PuzzleFactory {
       .calculateExits()
       .addThomas(config.thomas.row, config.thomas.column)
       .addWolf(config.wolf.row, config.wolf.column)
-      .calculateGameState()
-      .getPuzzle();
+      .calculateGameState();
   }
 
   static fromConfigArray(configList) {

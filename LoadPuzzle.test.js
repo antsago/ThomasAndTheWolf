@@ -42,7 +42,7 @@ describe("Load puzzle", () => {
   test("Handles base puzzle", () => {
     const { initial, expected } = samplePuzzle();
 
-    const result = PuzzleFactory.fromConfig(initial);
+    const result = PuzzleFactory.fromConfig(initial).getPuzzle();
 
     expect(result).toEqual(expected);
   });
@@ -75,7 +75,7 @@ describe("Load puzzle", () => {
       }
     );
 
-    const resultingPuzzle = PuzzleFactory.fromConfig(initial);
+    const resultingPuzzle = PuzzleFactory.fromConfig(initial).getPuzzle();
 
     expect(resultingPuzzle).toEqual(expected);
   });
@@ -109,7 +109,7 @@ describe("Load puzzle", () => {
       }
     );
 
-    const resultingPuzzle = PuzzleFactory.fromConfig(initial);
+    const resultingPuzzle = PuzzleFactory.fromConfig(initial).getPuzzle();
 
     expect(resultingPuzzle).toEqual(expected);
   });
@@ -135,7 +135,7 @@ describe("Load puzzle", () => {
       }
     );
 
-    const resultingPuzzle = PuzzleFactory.fromConfig(initial);
+    const resultingPuzzle = PuzzleFactory.fromConfig(initial).getPuzzle();
 
     expect(resultingPuzzle).toEqual(expected);
   });
@@ -161,7 +161,7 @@ describe("Load puzzle", () => {
       }
     );
 
-    const resultingPuzzle = PuzzleFactory.fromConfig(initial);
+    const resultingPuzzle = PuzzleFactory.fromConfig(initial).getPuzzle();
 
     expect(resultingPuzzle).toEqual(expected);
   });
@@ -178,7 +178,7 @@ describe("Load puzzle", () => {
       }
     );
 
-    const resultingPuzzle = PuzzleFactory.fromConfig(initial);
+    const resultingPuzzle = PuzzleFactory.fromConfig(initial).getPuzzle();
 
     expect(resultingPuzzle).toEqual(expected);
   });
@@ -187,8 +187,11 @@ describe("Load puzzle", () => {
     const { initial: puzzle1, expected: expected1 } = samplePuzzle();
     const { initial: puzzle2, expected: expected2 } = samplePuzzle();
 
-    const resultingPuzzle = PuzzleFactory.fromConfigArray([puzzle1, puzzle2]);
+    const result = PuzzleFactory.fromConfigArray([
+      puzzle1,
+      puzzle2,
+    ]).map((puzzle) => puzzle.getPuzzle());
 
-    expect(resultingPuzzle).toEqual([expected1, expected2]);
+    expect(result).toEqual([expected1, expected2]);
   });
 });
