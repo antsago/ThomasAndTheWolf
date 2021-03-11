@@ -1,4 +1,4 @@
-import loadPuzzle from "./LoadPuzzle";
+import PuzzleFactory from "./PuzzleFactory";
 
 function samplePuzzle(customPuzzle, customExpected) {
   const puzzle = {
@@ -36,14 +36,13 @@ function samplePuzzle(customPuzzle, customExpected) {
   return { puzzle, expected };
 }
 
-// Most of these tests should be extracted to a
-// PuzzleBuilder.test along with new ones to test
-// the new api combinations (e.g. adding thomas and then changing the cells)
+// These tests should be split into PuzzleFactory and Puzzle builders
+// to make them smaller (test only one thing) and easier to understand
 describe("Load puzzle", () => {
   test("Handles base puzzle", () => {
     const { puzzle, expected } = samplePuzzle();
 
-    const state = loadPuzzle(puzzle);
+    const state = PuzzleFactory.fromConfig(puzzle);
 
     expect(state).toEqual(expected);
   });
@@ -76,7 +75,7 @@ describe("Load puzzle", () => {
       }
     );
 
-    const state = loadPuzzle(puzzle);
+    const state = PuzzleFactory.fromConfig(puzzle);
 
     expect(state).toEqual(expected);
   });
@@ -110,7 +109,7 @@ describe("Load puzzle", () => {
       }
     );
 
-    const state = loadPuzzle(puzzle);
+    const state = PuzzleFactory.fromConfig(puzzle);
 
     expect(state).toEqual(expected);
   });
@@ -136,7 +135,7 @@ describe("Load puzzle", () => {
       }
     );
 
-    const state = loadPuzzle(puzzle);
+    const state = PuzzleFactory.fromConfig(puzzle);
 
     expect(state).toEqual(expected);
   });
@@ -147,7 +146,7 @@ describe("Load puzzle", () => {
       thomas: { row: 99, column: 99 },
     });
 
-    expect(() => loadPuzzle(puzzle)).toThrow();
+    expect(() => PuzzleFactory.fromConfig(puzzle)).toThrow();
   });
 
   test("If thomas is in an exit, he's escaped", () => {
@@ -162,7 +161,7 @@ describe("Load puzzle", () => {
       }
     );
 
-    const state = loadPuzzle(puzzle);
+    const state = PuzzleFactory.fromConfig(puzzle);
 
     expect(state).toEqual(expected);
   });
@@ -179,7 +178,7 @@ describe("Load puzzle", () => {
       }
     );
 
-    const state = loadPuzzle(puzzle);
+    const state = PuzzleFactory.fromConfig(puzzle);
 
     expect(state).toEqual(expected);
   });
