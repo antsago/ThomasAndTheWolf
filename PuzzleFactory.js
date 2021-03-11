@@ -12,6 +12,8 @@ class PuzzleFactory {
       .calculateGameState()
       .getPuzzle();
   }
+
+  static fromConfigArray() {}
 }
 
 export default PuzzleFactory;

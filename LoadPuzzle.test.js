@@ -182,4 +182,13 @@ describe("Load puzzle", () => {
 
     expect(state).toEqual(expected);
   });
+
+  test("Can load an array of configs", () => {
+    const { puzzle: puzzle1, expected: expected1 } = samplePuzzle();
+    const { puzzle: puzzle2, expected: expected2 } = samplePuzzle();
+
+    const state = PuzzleFactory.fromConfigArray([puzzle1, puzzle2]);
+
+    expect(state).toEqual([expected1, expected2]);
+  });
 });
