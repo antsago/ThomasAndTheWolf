@@ -1,8 +1,8 @@
 import PuzzleFactory from "./PuzzleFactory";
 
 function samplePuzzle(customPuzzle, customExpected) {
-  const puzzle = {
-    name: "puzzle1",
+  const initial = {
+    name: "testPuzzle",
     thomas: { row: 2, column: 2 },
     wolf: { row: 1, column: 1 },
     layout: [
@@ -15,36 +15,36 @@ function samplePuzzle(customPuzzle, customExpected) {
   };
 
   const expected = {
-    thomas: puzzle.thomas,
-    wolf: puzzle.wolf,
+    thomas: initial.thomas,
+    wolf: initial.wolf,
     isThomasTurn: true,
-    name: puzzle.name,
+    name: initial.name,
     thomasState: "running",
     layout: {
       1: {
-        1: { ...puzzle.layout[0], isExit: true },
-        2: { ...puzzle.layout[1], isExit: false },
+        1: { ...initial.layout[0], isExit: true },
+        2: { ...initial.layout[1], isExit: false },
       },
       2: {
-        1: { ...puzzle.layout[2], isExit: false },
-        2: { ...puzzle.layout[3], isExit: false },
+        1: { ...initial.layout[2], isExit: false },
+        2: { ...initial.layout[3], isExit: false },
       },
     },
     ...customExpected,
   };
 
-  return { puzzle, expected };
+  return { initial, expected };
 }
 
 // These tests should be split into PuzzleFactory and Puzzle builders
 // to make them smaller (test only one thing) and easier to understand
 describe("Load puzzle", () => {
   test("Handles base puzzle", () => {
-    const { puzzle, expected } = samplePuzzle();
+    const { initial, expected } = samplePuzzle();
 
-    const state = PuzzleFactory.fromConfig(puzzle);
+    const result = PuzzleFactory.fromConfig(initial);
 
-    expect(state).toEqual(expected);
+    expect(result).toEqual(expected);
   });
 
   test("Handles non 1 initial rows and columns", () => {
@@ -55,7 +55,7 @@ describe("Load puzzle", () => {
       { row: 2, column: 3, borders: "TR" },
       { row: 2, column: 2, borders: "LT" },
     ];
-    const { puzzle, expected } = samplePuzzle(
+    const { initial, expected } = samplePuzzle(
       {
         layout,
         wolf,
@@ -75,9 +75,9 @@ describe("Load puzzle", () => {
       }
     );
 
-    const state = PuzzleFactory.fromConfig(puzzle);
+    const resultingPuzzle = PuzzleFactory.fromConfig(initial);
 
-    expect(state).toEqual(expected);
+    expect(resultingPuzzle).toEqual(expected);
   });
 
   test("Handles non rectangular grid", () => {
@@ -88,7 +88,7 @@ describe("Load puzzle", () => {
       { row: 3, column: 1, borders: "BLT" },
       { row: 3, column: 2, borders: "RB" },
     ];
-    const { puzzle, expected } = samplePuzzle(
+    const { initial, expected } = samplePuzzle(
       {
         layout,
       },
@@ -109,9 +109,9 @@ describe("Load puzzle", () => {
       }
     );
 
-    const state = PuzzleFactory.fromConfig(puzzle);
+    const resultingPuzzle = PuzzleFactory.fromConfig(initial);
 
-    expect(state).toEqual(expected);
+    expect(resultingPuzzle).toEqual(expected);
   });
 
   test("Handles non connected cells", () => {
@@ -119,7 +119,7 @@ describe("Load puzzle", () => {
       { row: 1, column: 1, borders: "" },
       { row: 2, column: 2, borders: "TBLR" },
     ];
-    const { puzzle, expected } = samplePuzzle(
+    const { initial, expected } = samplePuzzle(
       {
         layout,
       },
@@ -135,23 +135,23 @@ describe("Load puzzle", () => {
       }
     );
 
-    const state = PuzzleFactory.fromConfig(puzzle);
+    const resultingPuzzle = PuzzleFactory.fromConfig(initial);
 
-    expect(state).toEqual(expected);
+    expect(resultingPuzzle).toEqual(expected);
   });
 
   test("Throws if characters are in not in a cell", () => {
-    const { puzzle } = samplePuzzle({
+    const { initial } = samplePuzzle({
       wolf: { row: 99, column: 99 },
       thomas: { row: 99, column: 99 },
     });
 
-    expect(() => PuzzleFactory.fromConfig(puzzle)).toThrow();
+    expect(() => PuzzleFactory.fromConfig(initial)).toThrow();
   });
 
   test("If thomas is in an exit, he's escaped", () => {
     const thomas = { row: 1, column: 1 };
-    const { puzzle, expected } = samplePuzzle(
+    const { initial, expected } = samplePuzzle(
       {
         thomas,
       },
@@ -161,14 +161,14 @@ describe("Load puzzle", () => {
       }
     );
 
-    const state = PuzzleFactory.fromConfig(puzzle);
+    const resultingPuzzle = PuzzleFactory.fromConfig(initial);
 
-    expect(state).toEqual(expected);
+    expect(resultingPuzzle).toEqual(expected);
   });
 
   test("If wolf is on Thomas, he's eaten", () => {
     const wolf = { row: 2, column: 2 };
-    const { puzzle, expected } = samplePuzzle(
+    const { initial, expected } = samplePuzzle(
       {
         wolf,
       },
@@ -178,17 +178,17 @@ describe("Load puzzle", () => {
       }
     );
 
-    const state = PuzzleFactory.fromConfig(puzzle);
+    const resultingPuzzle = PuzzleFactory.fromConfig(initial);
 
-    expect(state).toEqual(expected);
+    expect(resultingPuzzle).toEqual(expected);
   });
 
   test("Can load an array of configs", () => {
-    const { puzzle: puzzle1, expected: expected1 } = samplePuzzle();
-    const { puzzle: puzzle2, expected: expected2 } = samplePuzzle();
+    const { initial: puzzle1, expected: expected1 } = samplePuzzle();
+    const { initial: puzzle2, expected: expected2 } = samplePuzzle();
 
-    const state = PuzzleFactory.fromConfigArray([puzzle1, puzzle2]);
+    const resultingPuzzle = PuzzleFactory.fromConfigArray([puzzle1, puzzle2]);
 
-    expect(state).toEqual([expected1, expected2]);
+    expect(resultingPuzzle).toEqual([expected1, expected2]);
   });
 });
