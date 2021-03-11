@@ -13,7 +13,9 @@ class PuzzleFactory {
       .getPuzzle();
   }
 
-  static fromConfigArray() {}
+  static fromConfigArray(configList) {
+    return configList.map((config) => PuzzleFactory.fromConfig(config));
+  }
 }
 
 export default PuzzleFactory;
