@@ -15,6 +15,16 @@ class PuzzleFactory {
   static fromConfigArray(configList) {
     return configList.map((config) => PuzzleFactory.fromConfig(config));
   }
+
+  static fromPuzzle(original) {
+    const copy = new PuzzleBuilder(original.name, original.isThomasTurn);
+    copy.layout = original.layout;
+    copy.thomas = original.thomas;
+    copy.wolf = original.wolf;
+    copy.thomasState = original.thomasState;
+
+    return copy;
+  }
 }
 
 export default PuzzleFactory;
