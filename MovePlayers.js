@@ -1,4 +1,4 @@
-import { Borders, Moves, Turns } from "./constants";
+import { Borders, Moves, Players, ThomasStates, Turns } from "./constants";
 import PuzzleFactory from "./PuzzleFactory";
 
 function getNewPosition(move, currentPosition, layout) {
@@ -32,7 +32,11 @@ function getNewPosition(move, currentPosition, layout) {
   }
 }
 
-function changeTurn(currentTurn) {
+function changeTurn(currentTurn, player) {
+  if (player === Players.Wolf && currentTurn === Turns.Thomas) {
+    throw new Error("Moving out of turn");
+  }
+
   switch (currentTurn) {
     case Turns.Thomas:
       return Turns.Wolf1;
@@ -47,7 +51,7 @@ function changeTurn(currentTurn) {
 
 function movePlayer(player, move, puzzle) {
   const newPosition = getNewPosition(move, puzzle[player], puzzle.layout);
-  const newTurn = changeTurn(puzzle.turn);
+  const newTurn = changeTurn(puzzle.turn, player);
 
   return PuzzleFactory.fromPuzzle(puzzle)
     .setPlayer(player, newPosition.row, newPosition.column)
