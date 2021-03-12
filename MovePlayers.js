@@ -7,22 +7,22 @@ function getNewPosition(move, currentPosition, layout) {
   switch (move) {
     case Moves.Up:
       if (cellBorders.includes(Borders.Top)) {
-        return { ...currentPosition };
+        throw new Error("Attempting to move through walls!");
       }
       return { ...currentPosition, row: currentPosition.row - 1 };
     case Moves.Down:
       if (cellBorders.includes(Borders.Bottom)) {
-        return { ...currentPosition };
+        throw new Error("Attempting to move through walls!");
       }
       return { ...currentPosition, row: currentPosition.row + 1 };
     case Moves.Left:
       if (cellBorders.includes(Borders.Left)) {
-        return { ...currentPosition };
+        throw new Error("Attempting to move through walls!");
       }
       return { ...currentPosition, column: currentPosition.column - 1 };
     case Moves.Right:
       if (cellBorders.includes(Borders.Right)) {
-        return { ...currentPosition };
+        throw new Error("Attempting to move through walls!");
       }
       return { ...currentPosition, column: currentPosition.column + 1 };
     case Moves.Stay:

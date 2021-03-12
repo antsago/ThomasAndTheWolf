@@ -165,55 +165,47 @@ describe("Players moves", () => {
     expect(() => MovePlayers("A-phantom", Moves.Left, initial)).toThrow();
   });
 
-  test("Moving up through a wall does not change position", () => {
-    const { initial, expected } = testPuzzle({
+  test("Moving up through a wall throws", () => {
+    const { initial } = testPuzzle({
       layout: [
         { row: 1, column: 1, borders: "T" },
         { row: 2, column: 2, borders: "TLBR" },
       ],
     });
 
-    const result = MovePlayers(Players.Thomas, Moves.Up, initial);
-
-    expect(result.getPuzzle()).toEqual(expected.getPuzzle());
+    expect(() => MovePlayers(Players.Thomas, Moves.Up, initial)).toThrow();
   });
 
-  test("Moving left through a wall does not change position", () => {
-    const { initial, expected } = testPuzzle({
+  test("Moving left through a wall throws", () => {
+    const { initial } = testPuzzle({
       layout: [
         { row: 1, column: 1, borders: "T" },
         { row: 2, column: 2, borders: "TLBR" },
       ],
     });
 
-    const result = MovePlayers(Players.Thomas, Moves.Left, initial);
-
-    expect(result.getPuzzle()).toEqual(expected.getPuzzle());
+    expect(() => MovePlayers(Players.Thomas, Moves.Left, initial)).toThrow();
   });
 
-  test("Moving right through a wall does not change position", () => {
-    const { initial, expected } = testPuzzle({
+  test("Moving right through a wall throws", () => {
+    const { initial } = testPuzzle({
       layout: [
         { row: 1, column: 1, borders: "T" },
         { row: 2, column: 2, borders: "TLBR" },
       ],
     });
 
-    const result = MovePlayers(Players.Thomas, Moves.Right, initial);
-
-    expect(result.getPuzzle()).toEqual(expected.getPuzzle());
+    expect(() => MovePlayers(Players.Thomas, Moves.Right, initial)).toThrow();
   });
 
-  test("Moving down through a wall does not change position", () => {
-    const { initial, expected } = testPuzzle({
+  test("Moving down through a wall throws", () => {
+    const { initial } = testPuzzle({
       layout: [
         { row: 1, column: 1, borders: "T" },
         { row: 2, column: 2, borders: "TLBR" },
       ],
     });
 
-    const result = MovePlayers(Players.Thomas, Moves.Down, initial);
-
-    expect(result.getPuzzle()).toEqual(expected.getPuzzle());
+    expect(() => MovePlayers(Players.Thomas, Moves.Down, initial)).toThrow();
   });
 });
