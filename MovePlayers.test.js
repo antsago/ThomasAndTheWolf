@@ -31,7 +31,7 @@ describe("Players moves", () => {
       thomas: { row: 1, column: 2 },
     });
 
-    const result = MovePlayers("Thomas-Up", initial);
+    const result = MovePlayers("Thomas", "Up", initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -41,7 +41,7 @@ describe("Players moves", () => {
       thomas: { row: 2, column: 1 },
     });
 
-    const result = MovePlayers("Thomas-Left", initial);
+    const result = MovePlayers("Thomas", "Left", initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -51,7 +51,7 @@ describe("Players moves", () => {
       thomas: { row: 2, column: 3 },
     });
 
-    const result = MovePlayers("Thomas-Right", initial);
+    const result = MovePlayers("Thomas", "Right", initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -61,7 +61,7 @@ describe("Players moves", () => {
       thomas: { row: 3, column: 2 },
     });
 
-    const result = MovePlayers("Thomas-Down", initial);
+    const result = MovePlayers("Thomas", "Down", initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -69,7 +69,7 @@ describe("Players moves", () => {
   test("Stay does not change Thomas position", () => {
     const { initial, expected } = testPuzzle();
 
-    const result = MovePlayers("Thomas-Stay", initial);
+    const result = MovePlayers("Thomas", "Stay", initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -77,6 +77,6 @@ describe("Players moves", () => {
   test("Non valid move throws", () => {
     const { initial } = testPuzzle();
 
-    expect(() => MovePlayers("Non-valid-move", initial)).toThrow();
+    expect(() => MovePlayers("Thomas", "Non-valid-move", initial)).toThrow();
   });
 });
