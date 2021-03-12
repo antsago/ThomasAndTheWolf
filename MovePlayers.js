@@ -33,7 +33,10 @@ function getNewPosition(move, currentPosition, layout) {
 }
 
 function changeTurn(currentTurn, player) {
-  if (player === Players.Wolf && currentTurn === Turns.Thomas) {
+  if (
+    (player === Players.Wolf && currentTurn === Turns.Thomas) ||
+    (player === Players.Thomas && currentTurn !== Turns.Thomas)
+  ) {
     throw new Error("Moving out of turn");
   }
 

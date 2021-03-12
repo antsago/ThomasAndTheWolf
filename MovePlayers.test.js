@@ -239,4 +239,11 @@ describe("Players moves", () => {
 
     expect(() => MovePlayers(Players.Wolf, Moves.Right, initial)).toThrow();
   });
+
+  test("Thomas moving out of turn throws", () => {
+    const { initial } = testPuzzle();
+    initial.setTurn(Turns.Wolf1);
+
+    expect(() => MovePlayers(Players.Thomas, Moves.Right, initial)).toThrow();
+  });
 });
