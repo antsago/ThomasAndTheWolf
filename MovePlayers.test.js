@@ -55,4 +55,14 @@ describe("Players moves", () => {
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
+
+  test("Moving down changes Thomas position", () => {
+    const { initial, expected } = testPuzzle(undefined, {
+      thomas: { row: 3, column: 2 },
+    });
+
+    const result = MovePlayers("Thomas-Down", initial);
+
+    expect(result.getPuzzle()).toEqual(expected.getPuzzle());
+  });
 });

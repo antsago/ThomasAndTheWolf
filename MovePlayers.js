@@ -4,6 +4,8 @@ function getNewPosition(move, currentPosition) {
   switch (move) {
     case "Thomas-Up":
       return { ...currentPosition, row: currentPosition.row - 1 };
+    case "Thomas-Down":
+      return { ...currentPosition, row: currentPosition.row + 1 };
     case "Thomas-Left":
       return { ...currentPosition, column: currentPosition.column - 1 };
     case "Thomas-Right":
