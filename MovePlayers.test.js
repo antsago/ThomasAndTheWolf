@@ -208,4 +208,15 @@ describe("Players moves", () => {
 
     expect(() => MovePlayers(Players.Thomas, Moves.Down, initial)).toThrow();
   });
+
+  test("Moving into space throws", () => {
+    const { initial } = testPuzzle({
+      layout: [
+        { row: 1, column: 1, borders: "T" },
+        { row: 2, column: 2, borders: "" },
+      ],
+    });
+
+    expect(() => MovePlayers(Players.Thomas, Moves.Up, initial)).toThrow();
+  });
 });
