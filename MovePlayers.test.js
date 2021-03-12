@@ -10,7 +10,9 @@ function testPuzzle(initialConfig, expectedConfig) {
       { row: 1, column: 1, borders: "T" },
       { row: 1, column: 2, borders: "TR" },
       { row: 2, column: 1, borders: "LB" },
-      { row: 2, column: 2, borders: "BR" },
+      { row: 2, column: 2, borders: "" },
+      { row: 2, column: 3, borders: "RBT" },
+      { row: 3, column: 2, borders: "BRL" },
     ],
     ...initialConfig,
   };
@@ -40,6 +42,16 @@ describe("Players moves", () => {
     });
 
     const result = MovePlayers("Thomas-Left", initial);
+
+    expect(result.getPuzzle()).toEqual(expected.getPuzzle());
+  });
+
+  test("Moving right changes Thomas position", () => {
+    const { initial, expected } = testPuzzle(undefined, {
+      thomas: { row: 2, column: 3 },
+    });
+
+    const result = MovePlayers("Thomas-Right", initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
