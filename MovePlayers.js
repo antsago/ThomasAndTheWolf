@@ -18,25 +18,11 @@ function getNewPosition(move, currentPosition) {
 }
 
 function movePlayer(player, move, puzzle) {
-  if (player !== "Thomas" && player !== "Wolf") {
-    throw new Error("Player not recognized");
-  }
+  const newPosition = getNewPosition(move, puzzle[player]);
 
-  const newPosition = getNewPosition(
-    move,
-    player === "Thomas" ? puzzle.thomas : puzzle.wolf
-  );
-
-  const updatedPuzzle = PuzzleFactory.fromPuzzle(puzzle);
-  if (player === "Thomas") {
-    updatedPuzzle.addThomas(newPosition.row, newPosition.column);
-  } else {
-    updatedPuzzle.addWolf(newPosition.row, newPosition.column);
-  }
-
-  updatedPuzzle.calculateGameState();
-
-  return updatedPuzzle;
+  return PuzzleFactory.fromPuzzle(puzzle)
+    .setPlayer(player, newPosition.row, newPosition.column)
+    .calculateGameState();
 }
 
 export default movePlayer;

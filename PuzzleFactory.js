@@ -7,8 +7,8 @@ class PuzzleFactory {
     return new PuzzleBuilder(config.name, true)
       .addCells(config.layout)
       .calculateExits()
-      .addThomas(config.thomas.row, config.thomas.column)
-      .addWolf(config.wolf.row, config.wolf.column)
+      .setPlayer("Thomas", config.thomas.row, config.thomas.column)
+      .setPlayer("Wolf", config.wolf.row, config.wolf.column)
       .calculateGameState();
   }
 
@@ -19,8 +19,8 @@ class PuzzleFactory {
   static fromPuzzle(original) {
     const copy = new PuzzleBuilder(original.name, original.isThomasTurn);
     copy.layout = original.layout;
-    copy.thomas = original.thomas;
-    copy.wolf = original.wolf;
+    copy.Thomas = original.Thomas;
+    copy.Wolf = original.Wolf;
     copy.thomasState = original.thomasState;
 
     return copy;

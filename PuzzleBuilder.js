@@ -47,32 +47,26 @@ class PuzzleBuilder {
     return this;
   }
 
-  addThomas(row, column) {
-    if (!this.layout[row]?.[column]) {
-      throw new Error("Thomas must be on the grid");
+  setPlayer(player, row, column) {
+    if (player !== "Thomas" && player !== "Wolf") {
+      throw new Error("Player not recognized");
     }
 
-    this.thomas = { row, column };
-
-    return this;
-  }
-
-  addWolf(row, column) {
     if (!this.layout[row]?.[column]) {
-      throw new Error("The wolf must be on the grid");
+      throw new Error("Player must be on the grid");
     }
 
-    this.wolf = { row, column };
+    this[player] = { row, column };
 
     return this;
   }
 
   calculateGameState() {
-    const thomasIsOnExit = this.layout[this.thomas.row][this.thomas.column]
+    const thomasIsOnExit = this.layout[this.Thomas.row][this.Thomas.column]
       .isExit;
     const wolfIsOnThomas =
-      this.thomas.row === this.wolf.row &&
-      this.thomas.column === this.wolf.column;
+      this.Thomas.row === this.Wolf.row &&
+      this.Thomas.column === this.Wolf.column;
 
     if (thomasIsOnExit) {
       this.thomasState = "escaped";
@@ -89,8 +83,8 @@ class PuzzleBuilder {
     return {
       name: this.name,
       isThomasTurn: this.isThomasTurn,
-      thomas: this.thomas,
-      wolf: this.wolf,
+      thomas: this.Thomas,
+      wolf: this.Wolf,
       thomasState: this.thomasState,
       layout: this.layout,
     };
