@@ -1,3 +1,4 @@
+import { ThomasStates } from "./constants";
 import PuzzleFactory from "./PuzzleFactory";
 
 function samplePuzzle(customPuzzle, customExpected) {
@@ -19,7 +20,7 @@ function samplePuzzle(customPuzzle, customExpected) {
     wolf: initial.wolf,
     isThomasTurn: true,
     name: initial.name,
-    thomasState: "running",
+    thomasState: ThomasStates.Running,
     layout: {
       1: {
         1: { ...initial.layout[0], isExit: true },
@@ -157,7 +158,7 @@ describe("Load puzzle", () => {
       },
       {
         thomas,
-        thomasState: "escaped",
+        thomasState: ThomasStates.Escaped,
       }
     );
 
@@ -174,7 +175,7 @@ describe("Load puzzle", () => {
       },
       {
         wolf,
-        thomasState: "eaten",
+        thomasState: ThomasStates.Eaten,
       }
     );
 

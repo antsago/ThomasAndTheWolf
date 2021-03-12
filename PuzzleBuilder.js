@@ -1,3 +1,5 @@
+import { Borders, Players, ThomasStates } from "./constants";
+
 class PuzzleBuilder {
   constructor(name, isThomasTurn) {
     this.name = name;
@@ -23,10 +25,13 @@ class PuzzleBuilder {
   isCellExit(row, column) {
     const cell = this.layout[row][column];
     return (
-      (!cell.borders.includes("T") && !this.layout[row - 1]?.[column]) ||
-      (!cell.borders.includes("B") && !this.layout[row + 1]?.[column]) ||
-      (!cell.borders.includes("L") && !this.layout[row]?.[column - 1]) ||
-      (!cell.borders.includes("R") && !this.layout[row]?.[column + 1])
+      (!cell.borders.includes(Borders.Top) &&
+        !this.layout[row - 1]?.[column]) ||
+      (!cell.borders.includes(Borders.Bottom) &&
+        !this.layout[row + 1]?.[column]) ||
+      (!cell.borders.includes(Borders.Left) &&
+        !this.layout[row]?.[column - 1]) ||
+      (!cell.borders.includes(Borders.Right) && !this.layout[row]?.[column + 1])
     );
   }
 
@@ -48,7 +53,7 @@ class PuzzleBuilder {
   }
 
   setPlayer(player, row, column) {
-    if (player !== "Thomas" && player !== "Wolf") {
+    if (player !== Players.Thomas && player !== Players.Wolf) {
       throw new Error("Player not recognized");
     }
 
@@ -62,18 +67,19 @@ class PuzzleBuilder {
   }
 
   calculateGameState() {
-    const thomasIsOnExit = this.layout[this.Thomas.row][this.Thomas.column]
+    const thomasCell = this[Players.Thomas];
+    const wolfCell = this[Players.Wolf];
+    const thomasIsOnExit = this.layout[thomasCell.row][thomasCell.column]
       .isExit;
     const wolfIsOnThomas =
-      this.Thomas.row === this.Wolf.row &&
-      this.Thomas.column === this.Wolf.column;
+      thomasCell.row === wolfCell.row && thomasCell.column === wolfCell.column;
 
     if (thomasIsOnExit) {
-      this.thomasState = "escaped";
+      this.thomasState = ThomasStates.Escaped;
     } else if (wolfIsOnThomas) {
-      this.thomasState = "eaten";
+      this.thomasState = ThomasStates.Eaten;
     } else {
-      this.thomasState = "running";
+      this.thomasState = ThomasStates.Running;
     }
 
     return this;

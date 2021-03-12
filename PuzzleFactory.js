@@ -1,5 +1,7 @@
 import PuzzleBuilder from "./PuzzleBuilder";
 
+import { Players } from "./constants";
+
 class PuzzleFactory {
   // Inputs should be run through some schema validator like yup or joi
 
@@ -7,8 +9,8 @@ class PuzzleFactory {
     return new PuzzleBuilder(config.name, true)
       .addCells(config.layout)
       .calculateExits()
-      .setPlayer("Thomas", config.thomas.row, config.thomas.column)
-      .setPlayer("Wolf", config.wolf.row, config.wolf.column)
+      .setPlayer(Players.Thomas, config.thomas.row, config.thomas.column)
+      .setPlayer(Players.Wolf, config.wolf.row, config.wolf.column)
       .calculateGameState();
   }
 
@@ -19,8 +21,8 @@ class PuzzleFactory {
   static fromPuzzle(original) {
     const copy = new PuzzleBuilder(original.name, original.isThomasTurn);
     copy.layout = original.layout;
-    copy.Thomas = original.Thomas;
-    copy.Wolf = original.Wolf;
+    copy[Players.Thomas] = original[Players.Thomas];
+    copy[Players.Wolf] = original[Players.Wolf];
     copy.thomasState = original.thomasState;
 
     return copy;
