@@ -10,6 +10,8 @@ function getNewPosition(move, currentPosition) {
       return { ...currentPosition, column: currentPosition.column - 1 };
     case "Thomas-Right":
       return { ...currentPosition, column: currentPosition.column + 1 };
+    case "Thomas-Stay":
+      return { ...currentPosition };
     default:
       throw new Error("Move not valid");
   }

@@ -65,4 +65,12 @@ describe("Players moves", () => {
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
+
+  test("Stay does not change Thomas position", () => {
+    const { initial, expected } = testPuzzle();
+
+    const result = MovePlayers("Thomas-Stay", initial);
+
+    expect(result.getPuzzle()).toEqual(expected.getPuzzle());
+  });
 });
