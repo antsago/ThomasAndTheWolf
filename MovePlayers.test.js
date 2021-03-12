@@ -155,4 +155,10 @@ describe("Players moves", () => {
 
     expect(() => MovePlayers("Thomas", "Non-valid-move", initial)).toThrow();
   });
+
+  test("Non valid player throws", () => {
+    const { initial } = testPuzzle();
+
+    expect(() => MovePlayers("A-phantom", "Left", initial)).toThrow();
+  });
 });

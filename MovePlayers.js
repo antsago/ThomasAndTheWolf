@@ -18,6 +18,10 @@ function getNewPosition(move, currentPosition) {
 }
 
 function movePlayer(player, move, puzzle) {
+  if (player !== "Thomas" && player !== "Wolf") {
+    throw new Error("Player not recognized");
+  }
+
   const newPosition = getNewPosition(
     move,
     player === "Thomas" ? puzzle.thomas : puzzle.wolf
