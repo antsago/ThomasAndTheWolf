@@ -1,4 +1,4 @@
-import { ThomasStates } from "./constants";
+import { ThomasStates, Turns } from "./constants";
 import PuzzleFactory from "./PuzzleFactory";
 
 function samplePuzzle(customPuzzle, customExpected) {
@@ -18,7 +18,7 @@ function samplePuzzle(customPuzzle, customExpected) {
   const expected = {
     thomas: initial.thomas,
     wolf: initial.wolf,
-    isThomasTurn: true,
+    turn: Turns.Thomas,
     name: initial.name,
     thomasState: ThomasStates.Running,
     layout: {

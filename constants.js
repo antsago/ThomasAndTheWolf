@@ -27,3 +27,10 @@ export const ThomasStates = {
   Escaped: "Escaped",
 };
 Object.freeze(ThomasStates);
+
+export const Turns = {
+  Thomas: "Thomas",
+  Wolf1: "Wolf1",
+  Wolf2: "Wolf2",
+};
+Object.freeze(ThomasStates);

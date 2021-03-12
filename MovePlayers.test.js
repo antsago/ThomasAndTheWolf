@@ -1,4 +1,4 @@
-import { Players, Moves } from "./constants";
+import { Players, Moves, Turns } from "./constants";
 import PuzzleFactory from "./PuzzleFactory";
 import MovePlayers from "./MovePlayers";
 
@@ -15,6 +15,7 @@ function testPuzzle(initialConfig, expectedConfig) {
       { row: 2, column: 3, borders: "RBT" },
       { row: 3, column: 2, borders: "BRL" },
     ],
+    turn: Turns.Thomas,
     ...initialConfig,
   };
   const initial = PuzzleFactory.fromConfig(baseConfig);

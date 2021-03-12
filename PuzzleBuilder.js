@@ -1,9 +1,9 @@
 import { Borders, Players, ThomasStates } from "./constants";
 
 class PuzzleBuilder {
-  constructor(name, isThomasTurn) {
+  constructor(name, turn) {
     this.name = name;
-    this.isThomasTurn = isThomasTurn;
+    this.turn = turn;
     this.layout = {};
   }
 
@@ -88,7 +88,7 @@ class PuzzleBuilder {
   getPuzzle() {
     return {
       name: this.name,
-      isThomasTurn: this.isThomasTurn,
+      turn: this.turn,
       thomas: this.Thomas,
       wolf: this.Wolf,
       thomasState: this.thomasState,
