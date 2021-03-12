@@ -86,10 +86,11 @@ describe("Players moves", () => {
         wolf: { row: 1, column: 2 },
       }
     );
+    initial.setTurn(Turns.Wolf1);
 
     const result = MovePlayers(Players.Wolf, Moves.Up, initial);
 
-    expect(result.getPuzzle()).toEqual(expected);
+    expect(result.getPuzzle()).toEqual({ ...expected, turn: Turns.Wolf2 });
   });
 
   test("Moving left changes Wolf position", () => {
@@ -103,10 +104,11 @@ describe("Players moves", () => {
         wolf: { row: 2, column: 1 },
       }
     );
+    initial.setTurn(Turns.Wolf1);
 
     const result = MovePlayers(Players.Wolf, Moves.Left, initial);
 
-    expect(result.getPuzzle()).toEqual(expected);
+    expect(result.getPuzzle()).toEqual({ ...expected, turn: Turns.Wolf2 });
   });
 
   test("Moving right changes Wolf position", () => {
@@ -120,10 +122,11 @@ describe("Players moves", () => {
         wolf: { row: 2, column: 3 },
       }
     );
+    initial.setTurn(Turns.Wolf1);
 
     const result = MovePlayers(Players.Wolf, Moves.Right, initial);
 
-    expect(result.getPuzzle()).toEqual(expected);
+    expect(result.getPuzzle()).toEqual({ ...expected, turn: Turns.Wolf2 });
   });
 
   test("Moving down changes Wolf position", () => {
@@ -137,18 +140,20 @@ describe("Players moves", () => {
         wolf: { row: 3, column: 2 },
       }
     );
+    initial.setTurn(Turns.Wolf1);
 
     const result = MovePlayers(Players.Wolf, Moves.Down, initial);
 
-    expect(result.getPuzzle()).toEqual(expected);
+    expect(result.getPuzzle()).toEqual({ ...expected, turn: Turns.Wolf2 });
   });
 
   test("Stay does not change Wolf position", () => {
     const { initial, expected } = testPuzzle();
+    initial.setTurn(Turns.Wolf1);
 
     const result = MovePlayers(Players.Wolf, Moves.Stay, initial);
 
-    expect(result.getPuzzle()).toEqual(expected);
+    expect(result.getPuzzle()).toEqual({ ...expected, turn: Turns.Wolf2 });
   });
 
   test("Non valid move throws", () => {

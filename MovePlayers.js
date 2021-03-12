@@ -32,12 +32,24 @@ function getNewPosition(move, currentPosition, layout) {
   }
 }
 
+function changeTurn(currentTurn) {
+  switch (currentTurn) {
+    case Turns.Thomas:
+      return Turns.Wolf1;
+    case Turns.Wolf1:
+      return Turns.Wolf2;
+    default:
+      throw new Error("Turn not recognized");
+  }
+}
+
 function movePlayer(player, move, puzzle) {
   const newPosition = getNewPosition(move, puzzle[player], puzzle.layout);
+  const newTurn = changeTurn(puzzle.turn);
 
   return PuzzleFactory.fromPuzzle(puzzle)
     .setPlayer(player, newPosition.row, newPosition.column)
-    .setTurn(Turns.Wolf1)
+    .setTurn(newTurn)
     .calculateGameState();
 }
 
