@@ -73,4 +73,10 @@ describe("Players moves", () => {
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
+
+  test("Non valid move throws", () => {
+    const { initial } = testPuzzle();
+
+    expect(() => MovePlayers("Non-valid-move", initial)).toThrow();
+  });
 });
