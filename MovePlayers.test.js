@@ -236,4 +236,54 @@ describe("Players moves", () => {
 
     expect(() => MovePlayers(Players.Thomas, Moves.Right, initial)).toThrow();
   });
+
+  test("Thomas moving to exit lets him escape", () => {
+    const { initial, expected } = testPuzzle({
+      layout: [
+        { row: 1, column: 1, borders: "TLB" },
+        { row: 1, column: 2, borders: "T" },
+        { row: 2, column: 2, borders: "LBR" },
+      ],
+    });
+    expected.setPlayer(Players.Thomas, 1, 2).calculateGameState();
+
+    const result = MovePlayers(Players.Thomas, Moves.Up, initial);
+
+    expect(result.getPuzzle()).toEqual(expected.getPuzzle());
+  });
+
+  test("Thomas fighting wolf gets him eaten", () => {
+    const { initial, expected } = testPuzzle({
+      layout: [
+        { row: 1, column: 1, borders: "TLB" },
+        { row: 1, column: 2, borders: "TRB" },
+      ],
+      thomas: { row: 1, column: 2 },
+    });
+    expected.setPlayer(Players.Thomas, 1, 2);
+    expected.setPlayer(Players.Thomas, 1, 1).calculateGameState();
+
+    const result = MovePlayers(Players.Thomas, Moves.Left, initial);
+
+    expect(result.getPuzzle()).toEqual(expected.getPuzzle());
+  });
+
+  test("Wolf catching Thomas gets him eaten", () => {
+    const { initial, expected } = testPuzzle({
+      layout: [
+        { row: 1, column: 1, borders: "TLB" },
+        { row: 1, column: 2, borders: "TRB" },
+      ],
+      thomas: { row: 1, column: 2 },
+    });
+    initial.setTurn(Turns.Wolf1);
+    expected
+      .setTurn(Turns.Wolf2)
+      .setPlayer(Players.Wolf, 1, 2)
+      .calculateGameState();
+
+    const result = MovePlayers(Players.Wolf, Moves.Right, initial);
+
+    expect(result.getPuzzle()).toEqual(expected.getPuzzle());
+  });
 });
