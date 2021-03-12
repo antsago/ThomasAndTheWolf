@@ -38,6 +38,8 @@ function changeTurn(currentTurn) {
       return Turns.Wolf1;
     case Turns.Wolf1:
       return Turns.Wolf2;
+    case Turns.Wolf2:
+      return Turns.Thomas;
     default:
       throw new Error("Turn not recognized");
   }

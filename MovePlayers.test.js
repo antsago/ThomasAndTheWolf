@@ -224,4 +224,13 @@ describe("Players moves", () => {
 
     expect(() => MovePlayers(Players.Thomas, Moves.Up, initial)).toThrow();
   });
+
+  test("Wolf second turn changes into Thomas", () => {
+    const { initial, expected } = testPuzzle();
+    initial.setTurn(Turns.Wolf2);
+
+    const result = MovePlayers(Players.Wolf, Moves.Stay, initial);
+
+    expect(result.getPuzzle()).toEqual({ ...expected, turn: Turns.Thomas });
+  });
 });
