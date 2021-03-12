@@ -1,6 +1,6 @@
 import { Players, Moves, Turns } from "./constants";
 import PuzzleFactory from "./PuzzleFactory";
-import MovePlayers from "./MovePlayers";
+import MoveBuilder from "./MoveBuilder";
 
 function testPuzzle(initialConfig, expectedConfig) {
   const baseConfig = {
@@ -31,7 +31,7 @@ describe("Players moves", () => {
     const { initial, expected } = testPuzzle();
     expected.setPlayer(Players.Thomas, 1, 2);
 
-    const result = MovePlayers(Players.Thomas, Moves.Up, initial);
+    const result = MoveBuilder.move(Players.Thomas, Moves.Up, initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -40,7 +40,7 @@ describe("Players moves", () => {
     const { initial, expected } = testPuzzle();
     expected.setPlayer(Players.Thomas, 2, 1);
 
-    const result = MovePlayers(Players.Thomas, Moves.Left, initial);
+    const result = MoveBuilder.move(Players.Thomas, Moves.Left, initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -49,7 +49,7 @@ describe("Players moves", () => {
     const { initial, expected } = testPuzzle();
     expected.setPlayer(Players.Thomas, 2, 3);
 
-    const result = MovePlayers(Players.Thomas, Moves.Right, initial);
+    const result = MoveBuilder.move(Players.Thomas, Moves.Right, initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -58,7 +58,7 @@ describe("Players moves", () => {
     const { initial, expected } = testPuzzle();
     expected.setPlayer(Players.Thomas, 3, 2);
 
-    const result = MovePlayers(Players.Thomas, Moves.Down, initial);
+    const result = MoveBuilder.move(Players.Thomas, Moves.Down, initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -66,7 +66,7 @@ describe("Players moves", () => {
   test("Stay does not change Thomas position", () => {
     const { initial, expected } = testPuzzle();
 
-    const result = MovePlayers(Players.Thomas, Moves.Stay, initial);
+    const result = MoveBuilder.move(Players.Thomas, Moves.Stay, initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -82,7 +82,7 @@ describe("Players moves", () => {
       .setPlayer(Players.Wolf, 1, 2)
       .setTurn(Turns.Wolf2);
 
-    const result = MovePlayers(Players.Wolf, Moves.Up, initial);
+    const result = MoveBuilder.move(Players.Wolf, Moves.Up, initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -98,7 +98,7 @@ describe("Players moves", () => {
       .setPlayer(Players.Wolf, 2, 1)
       .setTurn(Turns.Wolf2);
 
-    const result = MovePlayers(Players.Wolf, Moves.Left, initial);
+    const result = MoveBuilder.move(Players.Wolf, Moves.Left, initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -114,7 +114,7 @@ describe("Players moves", () => {
       .setPlayer(Players.Wolf, 2, 3)
       .setTurn(Turns.Wolf2);
 
-    const result = MovePlayers(Players.Wolf, Moves.Right, initial);
+    const result = MoveBuilder.move(Players.Wolf, Moves.Right, initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -130,7 +130,7 @@ describe("Players moves", () => {
       .setPlayer(Players.Wolf, 3, 2)
       .setTurn(Turns.Wolf2);
 
-    const result = MovePlayers(Players.Wolf, Moves.Down, initial);
+    const result = MoveBuilder.move(Players.Wolf, Moves.Down, initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -140,7 +140,7 @@ describe("Players moves", () => {
     initial.setTurn(Turns.Wolf1);
     expected.setTurn(Turns.Wolf2);
 
-    const result = MovePlayers(Players.Wolf, Moves.Stay, initial);
+    const result = MoveBuilder.move(Players.Wolf, Moves.Stay, initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -149,14 +149,14 @@ describe("Players moves", () => {
     const { initial } = testPuzzle();
 
     expect(() =>
-      MovePlayers(Players.Thomas, "Non-valid-move", initial)
+      MoveBuilder.move(Players.Thomas, "Non-valid-move", initial)
     ).toThrow();
   });
 
   test("Non valid player throws", () => {
     const { initial } = testPuzzle();
 
-    expect(() => MovePlayers("A-phantom", Moves.Left, initial)).toThrow();
+    expect(() => MoveBuilder.move("A-phantom", Moves.Left, initial)).toThrow();
   });
 
   test("Moving up through a wall throws", () => {
@@ -167,7 +167,7 @@ describe("Players moves", () => {
       ],
     });
 
-    expect(() => MovePlayers(Players.Thomas, Moves.Up, initial)).toThrow();
+    expect(() => MoveBuilder.move(Players.Thomas, Moves.Up, initial)).toThrow();
   });
 
   test("Moving left through a wall throws", () => {
@@ -178,7 +178,9 @@ describe("Players moves", () => {
       ],
     });
 
-    expect(() => MovePlayers(Players.Thomas, Moves.Left, initial)).toThrow();
+    expect(() =>
+      MoveBuilder.move(Players.Thomas, Moves.Left, initial)
+    ).toThrow();
   });
 
   test("Moving right through a wall throws", () => {
@@ -189,7 +191,9 @@ describe("Players moves", () => {
       ],
     });
 
-    expect(() => MovePlayers(Players.Thomas, Moves.Right, initial)).toThrow();
+    expect(() =>
+      MoveBuilder.move(Players.Thomas, Moves.Right, initial)
+    ).toThrow();
   });
 
   test("Moving down through a wall throws", () => {
@@ -200,7 +204,9 @@ describe("Players moves", () => {
       ],
     });
 
-    expect(() => MovePlayers(Players.Thomas, Moves.Down, initial)).toThrow();
+    expect(() =>
+      MoveBuilder.move(Players.Thomas, Moves.Down, initial)
+    ).toThrow();
   });
 
   test("Moving into space throws", () => {
@@ -211,7 +217,7 @@ describe("Players moves", () => {
       ],
     });
 
-    expect(() => MovePlayers(Players.Thomas, Moves.Up, initial)).toThrow();
+    expect(() => MoveBuilder.move(Players.Thomas, Moves.Up, initial)).toThrow();
   });
 
   test("Wolf second turn changes into Thomas", () => {
@@ -219,7 +225,7 @@ describe("Players moves", () => {
     initial.setTurn(Turns.Wolf2);
     expected.setTurn(Turns.Thomas);
 
-    const result = MovePlayers(Players.Wolf, Moves.Stay, initial);
+    const result = MoveBuilder.move(Players.Wolf, Moves.Stay, initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -227,14 +233,18 @@ describe("Players moves", () => {
   test("Wolf moving out of turn throws", () => {
     const { initial } = testPuzzle();
 
-    expect(() => MovePlayers(Players.Wolf, Moves.Right, initial)).toThrow();
+    expect(() =>
+      MoveBuilder.move(Players.Wolf, Moves.Right, initial)
+    ).toThrow();
   });
 
   test("Thomas moving out of turn throws", () => {
     const { initial } = testPuzzle();
     initial.setTurn(Turns.Wolf1);
 
-    expect(() => MovePlayers(Players.Thomas, Moves.Right, initial)).toThrow();
+    expect(() =>
+      MoveBuilder.move(Players.Thomas, Moves.Right, initial)
+    ).toThrow();
   });
 
   test("Thomas moving to exit lets him escape", () => {
@@ -245,9 +255,9 @@ describe("Players moves", () => {
         { row: 2, column: 2, borders: "LBR" },
       ],
     });
-    expected.setPlayer(Players.Thomas, 1, 2).calculateGameState();
+    expected.setPlayer(Players.Thomas, 1, 2).calculateThomasState();
 
-    const result = MovePlayers(Players.Thomas, Moves.Up, initial);
+    const result = MoveBuilder.move(Players.Thomas, Moves.Up, initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -261,9 +271,9 @@ describe("Players moves", () => {
       thomas: { row: 1, column: 2 },
     });
     expected.setPlayer(Players.Thomas, 1, 2);
-    expected.setPlayer(Players.Thomas, 1, 1).calculateGameState();
+    expected.setPlayer(Players.Thomas, 1, 1).calculateThomasState();
 
-    const result = MovePlayers(Players.Thomas, Moves.Left, initial);
+    const result = MoveBuilder.move(Players.Thomas, Moves.Left, initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });
@@ -280,9 +290,9 @@ describe("Players moves", () => {
     expected
       .setTurn(Turns.Wolf2)
       .setPlayer(Players.Wolf, 1, 2)
-      .calculateGameState();
+      .calculateThomasState();
 
-    const result = MovePlayers(Players.Wolf, Moves.Right, initial);
+    const result = MoveBuilder.move(Players.Wolf, Moves.Right, initial);
 
     expect(result.getPuzzle()).toEqual(expected.getPuzzle());
   });

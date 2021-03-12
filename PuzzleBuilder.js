@@ -70,7 +70,7 @@ class PuzzleBuilder {
     return this;
   }
 
-  calculateGameState() {
+  calculateThomasState() {
     const thomasCell = this[Players.Thomas];
     const wolfCell = this[Players.Wolf];
     const thomasIsOnExit = this.layout[thomasCell.row][thomasCell.column]

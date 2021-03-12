@@ -11,7 +11,7 @@ class PuzzleFactory {
       .setPlayer(Players.Thomas, config.thomas.row, config.thomas.column)
       .setPlayer(Players.Wolf, config.wolf.row, config.wolf.column)
       .setTurn(Turns.Thomas)
-      .calculateGameState();
+      .calculateThomasState();
   }
 
   static fromConfigArray(configList) {
@@ -23,6 +23,7 @@ class PuzzleFactory {
     copy.layout = original.layout;
     copy[Players.Thomas] = original[Players.Thomas];
     copy[Players.Wolf] = original[Players.Wolf];
+    copy.turn = original.turn;
     copy.thomasState = original.thomasState;
 
     return copy;
