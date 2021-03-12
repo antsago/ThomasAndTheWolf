@@ -1,4 +1,4 @@
-import { Borders, Moves } from "./constants";
+import { Borders, Moves, Turns } from "./constants";
 import PuzzleFactory from "./PuzzleFactory";
 
 function getNewPosition(move, currentPosition, layout) {
@@ -35,9 +35,15 @@ function getNewPosition(move, currentPosition, layout) {
 function movePlayer(player, move, puzzle) {
   const newPosition = getNewPosition(move, puzzle[player], puzzle.layout);
 
-  return PuzzleFactory.fromPuzzle(puzzle)
-    .setPlayer(player, newPosition.row, newPosition.column)
-    .calculateGameState();
+  const result = PuzzleFactory.fromPuzzle(puzzle).setPlayer(
+    player,
+    newPosition.row,
+    newPosition.column
+  );
+  result.turn = Turns.Wolf1;
+  result.calculateGameState();
+
+  return result;
 }
 
 export default movePlayer;
