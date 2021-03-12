@@ -35,15 +35,10 @@ function getNewPosition(move, currentPosition, layout) {
 function movePlayer(player, move, puzzle) {
   const newPosition = getNewPosition(move, puzzle[player], puzzle.layout);
 
-  const result = PuzzleFactory.fromPuzzle(puzzle).setPlayer(
-    player,
-    newPosition.row,
-    newPosition.column
-  );
-  result.turn = Turns.Wolf1;
-  result.calculateGameState();
-
-  return result;
+  return PuzzleFactory.fromPuzzle(puzzle)
+    .setPlayer(player, newPosition.row, newPosition.column)
+    .setTurn(Turns.Wolf1)
+    .calculateGameState();
 }
 
 export default movePlayer;

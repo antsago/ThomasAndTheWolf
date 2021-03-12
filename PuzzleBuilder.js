@@ -1,10 +1,14 @@
 import { Borders, Players, ThomasStates } from "./constants";
 
 class PuzzleBuilder {
-  constructor(name, turn) {
+  constructor(name) {
     this.name = name;
-    this.turn = turn;
     this.layout = {};
+  }
+
+  setTurn(turn) {
+    this.turn = turn;
+    return this;
   }
 
   addCell(row, column, borders) {

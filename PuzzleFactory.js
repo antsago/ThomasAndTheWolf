@@ -5,11 +5,12 @@ class PuzzleFactory {
   // Inputs should be run through some schema validator like yup or joi
 
   static fromConfig(config) {
-    return new PuzzleBuilder(config.name, Turns.Thomas)
+    return new PuzzleBuilder(config.name)
       .addCells(config.layout)
       .calculateExits()
       .setPlayer(Players.Thomas, config.thomas.row, config.thomas.column)
       .setPlayer(Players.Wolf, config.wolf.row, config.wolf.column)
+      .setTurn(Turns.Thomas)
       .calculateGameState();
   }
 
