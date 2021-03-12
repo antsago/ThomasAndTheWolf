@@ -1,5 +1,4 @@
 import PuzzleBuilder from "./PuzzleBuilder";
-
 import { Players } from "./constants";
 
 class PuzzleFactory {

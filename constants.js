@@ -9,6 +9,7 @@ export const Moves = {
   Down: "Down",
   Left: "Left",
   Right: "Right",
+  Stay: "Stay",
 };
 Object.freeze(Moves);
 

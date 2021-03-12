@@ -1,19 +1,20 @@
+import { Moves } from "./constants";
 import PuzzleFactory from "./PuzzleFactory";
 
 function getNewPosition(move, currentPosition) {
   switch (move) {
-    case "Up":
+    case Moves.Up:
       return { ...currentPosition, row: currentPosition.row - 1 };
-    case "Down":
+    case Moves.Down:
       return { ...currentPosition, row: currentPosition.row + 1 };
-    case "Left":
+    case Moves.Left:
       return { ...currentPosition, column: currentPosition.column - 1 };
-    case "Right":
+    case Moves.Right:
       return { ...currentPosition, column: currentPosition.column + 1 };
-    case "Stay":
+    case Moves.Stay:
       return { ...currentPosition };
     default:
-      throw new Error("Move not valid");
+      throw new Error("Move not recognized");
   }
 }
 
