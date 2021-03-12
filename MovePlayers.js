@@ -18,11 +18,19 @@ function getNewPosition(move, currentPosition) {
 }
 
 function movePlayer(player, move, puzzle) {
-  const newPosition = getNewPosition(move, puzzle.thomas);
+  const newPosition = getNewPosition(
+    move,
+    player === "Thomas" ? puzzle.thomas : puzzle.wolf
+  );
 
-  const updatedPuzzle = PuzzleFactory.fromPuzzle(puzzle)
-    .addThomas(newPosition.row, newPosition.column)
-    .calculateGameState();
+  const updatedPuzzle = PuzzleFactory.fromPuzzle(puzzle);
+  if (player === "Thomas") {
+    updatedPuzzle.addThomas(newPosition.row, newPosition.column);
+  } else {
+    updatedPuzzle.addWolf(newPosition.row, newPosition.column);
+  }
+
+  updatedPuzzle.calculateGameState();
 
   return updatedPuzzle;
 }
