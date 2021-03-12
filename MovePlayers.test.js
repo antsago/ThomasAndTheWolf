@@ -164,4 +164,56 @@ describe("Players moves", () => {
 
     expect(() => MovePlayers("A-phantom", Moves.Left, initial)).toThrow();
   });
+
+  test("Moving up through a wall does not change position", () => {
+    const { initial, expected } = testPuzzle({
+      layout: [
+        { row: 1, column: 1, borders: "T" },
+        { row: 2, column: 2, borders: "TLBR" },
+      ],
+    });
+
+    const result = MovePlayers(Players.Thomas, Moves.Up, initial);
+
+    expect(result.getPuzzle()).toEqual(expected.getPuzzle());
+  });
+
+  test("Moving left through a wall does not change position", () => {
+    const { initial, expected } = testPuzzle({
+      layout: [
+        { row: 1, column: 1, borders: "T" },
+        { row: 2, column: 2, borders: "TLBR" },
+      ],
+    });
+
+    const result = MovePlayers(Players.Thomas, Moves.Left, initial);
+
+    expect(result.getPuzzle()).toEqual(expected.getPuzzle());
+  });
+
+  test("Moving right through a wall does not change position", () => {
+    const { initial, expected } = testPuzzle({
+      layout: [
+        { row: 1, column: 1, borders: "T" },
+        { row: 2, column: 2, borders: "TLBR" },
+      ],
+    });
+
+    const result = MovePlayers(Players.Thomas, Moves.Right, initial);
+
+    expect(result.getPuzzle()).toEqual(expected.getPuzzle());
+  });
+
+  test("Moving down through a wall does not change position", () => {
+    const { initial, expected } = testPuzzle({
+      layout: [
+        { row: 1, column: 1, borders: "T" },
+        { row: 2, column: 2, borders: "TLBR" },
+      ],
+    });
+
+    const result = MovePlayers(Players.Thomas, Moves.Down, initial);
+
+    expect(result.getPuzzle()).toEqual(expected.getPuzzle());
+  });
 });
