@@ -9,6 +9,6 @@
     "sourceType": "module"
   },
   "rules": {
-    "jest/expect-expect": ["error", { "assertFunctionNames": ["expect", "request.*.expect"] }]
+    "jest/expect-expect": ["error", { "assertFunctionNames": ["expect", "request.**.expect"] }]
   }
 }
