@@ -169,4 +169,52 @@ describe("Wolf move generator", () => {
 
     expect(move).toEqual(Moves.Right);
   });
+
+  test("When diagonally blocked down-right, the Wolf stays", () => {
+    const puzzle = testPuzzle([{ row: 1, column: 1, borders: "BR" }]).setPlayer(
+      Players.Wolf,
+      1,
+      1
+    );
+
+    const move = WolfMoveGenerator(puzzle);
+
+    expect(move).toEqual(Moves.Stay);
+  });
+
+  test("When diagonally blocked down-left, the Wolf stays", () => {
+    const puzzle = testPuzzle([{ row: 1, column: 3, borders: "LB" }]).setPlayer(
+      Players.Wolf,
+      1,
+      3
+    );
+
+    const move = WolfMoveGenerator(puzzle);
+
+    expect(move).toEqual(Moves.Stay);
+  });
+
+  test("When diagonally blocked up-left, the Wolf stays", () => {
+    const puzzle = testPuzzle([{ row: 3, column: 3, borders: "TL" }]).setPlayer(
+      Players.Wolf,
+      3,
+      3
+    );
+
+    const move = WolfMoveGenerator(puzzle);
+
+    expect(move).toEqual(Moves.Stay);
+  });
+
+  test("When diagonally blocked up-right, the Wolf stays", () => {
+    const puzzle = testPuzzle([{ row: 3, column: 1, borders: "TR" }]).setPlayer(
+      Players.Wolf,
+      3,
+      1
+    );
+
+    const move = WolfMoveGenerator(puzzle);
+
+    expect(move).toEqual(Moves.Stay);
+  });
 });
