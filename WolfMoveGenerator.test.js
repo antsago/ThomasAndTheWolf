@@ -97,4 +97,16 @@ describe("Wolf move generator", () => {
 
     expect(move).toEqual(Moves.Stay);
   });
+
+  test("On the same row and blocked left the Wolf stays", () => {
+    const puzzle = testPuzzle([{ row: 2, column: 1, borders: "L" }]).setPlayer(
+      Players.Wolf,
+      2,
+      1
+    );
+
+    const move = WolfMoveGenerator(puzzle);
+
+    expect(move).toEqual(Moves.Stay);
+  });
 });

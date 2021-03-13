@@ -17,7 +17,7 @@ function horizontally(thomasPosition, wolfPosition, wolfCell) {
     return Moves.Left;
   }
   if (thomasPosition.column > wolfPosition.column) {
-    return Moves.Right;
+    return wolfCell.borders.includes(Borders.Left) ? Moves.Stay : Moves.Right;
   }
 
   // In Thomas' cell already
