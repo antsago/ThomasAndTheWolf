@@ -43,4 +43,12 @@ describe("Wolf move generator", () => {
 
     expect(move).toEqual(Moves.Right);
   });
+
+  test("Wolf moves left towards Thomas", () => {
+    const puzzle = testPuzzle().setPlayer(Players.Wolf, 2, 3);
+
+    const move = WolfMoveGenerator(puzzle);
+
+    expect(move).toEqual(Moves.Left);
+  });
 });
