@@ -27,4 +27,12 @@ describe("Wolf move generator", () => {
 
     expect(move).toEqual(Moves.Down);
   });
+
+  test("Wolf moves up towards Thomas", () => {
+    const puzzle = testPuzzle().setPlayer(Players.Wolf, 3, 2);
+
+    const move = WolfMoveGenerator(puzzle);
+
+    expect(move).toEqual(Moves.Up);
+  });
 });
