@@ -1,5 +1,5 @@
 import express from "express";
-import { MoveBuilder, PuzzleFactory } from "./game";
+import { MoveBuilder, PuzzleFactory, WolfMoveGenerator } from "./game";
 
 const gameApi = express
   .Router()
@@ -22,6 +22,11 @@ const gameApi = express
           req.body.puzzle
         ).getPuzzle()
       )
+  )
+  .post("/moveWolf", (req, res) =>
+    res
+      .status(200)
+      .json({ move: WolfMoveGenerator(PuzzleFactory.fromPuzzle(req.body)) })
   );
 
 // Number of arguments marks this function as error handling
