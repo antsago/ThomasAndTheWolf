@@ -121,4 +121,16 @@ describe("Wolf move generator", () => {
 
     expect(move).toEqual(Moves.Stay);
   });
+
+  test("When diagonally, blocked down, the Wolf moves left", () => {
+    const puzzle = testPuzzle([{ row: 1, column: 3, borders: "B" }]).setPlayer(
+      Players.Wolf,
+      1,
+      3
+    );
+
+    const move = WolfMoveGenerator(puzzle);
+
+    expect(move).toEqual(Moves.Left);
+  });
 });

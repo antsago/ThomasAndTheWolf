@@ -29,7 +29,9 @@ function diagonally(thomasPosition, wolfPosition, wolfCell) {
     return Moves.Up;
   }
   if (thomasPosition.row > wolfPosition.row) {
-    return Moves.Down;
+    return wolfCell.borders.includes(Borders.Bottom)
+      ? horizontally(thomasPosition, wolfPosition, wolfCell)
+      : Moves.Down;
   }
 
   throw new Error("This should never happen");
