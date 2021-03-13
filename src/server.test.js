@@ -39,7 +39,7 @@ describe("Server", () => {
     }).getPuzzle();
     const player = Players.Thomas;
     const move = Moves.Up;
-    const finalState = MoveBuilder.move(player, move, puzzle);
+    const finalState = MoveBuilder.move(player, move, puzzle).getPuzzle();
 
     return request(server)
       .post("/game/move")

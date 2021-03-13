@@ -1,15 +1,31 @@
 import express from "express";
-import { PuzzleFactory } from "./game";
+import { MoveBuilder, PuzzleFactory } from "./game";
 
 const server = express()
   .use(express.json())
-  .post("/game/load", (req, res) =>
-    res
-      .status(200)
-      .json(
-        PuzzleFactory.fromConfigArray(req.body).map((puzzle) =>
-          puzzle.getPuzzle()
-        )
+  .use(
+    "/game",
+    express
+      .Router()
+      .post("/load", (req, res) =>
+        res
+          .status(200)
+          .json(
+            PuzzleFactory.fromConfigArray(req.body).map((puzzle) =>
+              puzzle.getPuzzle()
+            )
+          )
+      )
+      .post("/move", (req, res) =>
+        res
+          .status(200)
+          .json(
+            MoveBuilder.move(
+              req.body.player,
+              req.body.move,
+              req.body.puzzle
+            ).getPuzzle()
+          )
       )
   )
   // Number of arguments mark this function as error handling
