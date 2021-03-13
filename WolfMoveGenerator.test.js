@@ -11,9 +11,9 @@ function testPuzzle(walls) {
       { row: 1, column: 1, borders: "TL" },
       { row: 1, column: 2, borders: "T" },
       { row: 1, column: 3, borders: "TR" },
-      { row: 2, column: 1, borders: "R" },
+      { row: 2, column: 1, borders: "L" },
       { row: 2, column: 2, borders: "" },
-      { row: 2, column: 3, borders: "L" },
+      { row: 2, column: 3, borders: "R" },
       { row: 3, column: 1, borders: "BL" },
       { row: 3, column: 2, borders: "B" },
       { row: 3, column: 3, borders: "BR" },
@@ -98,11 +98,23 @@ describe("Wolf move generator", () => {
     expect(move).toEqual(Moves.Stay);
   });
 
-  test("On the same row and blocked left the Wolf stays", () => {
-    const puzzle = testPuzzle([{ row: 2, column: 1, borders: "L" }]).setPlayer(
+  test("On the same row and blocked right the Wolf stays", () => {
+    const puzzle = testPuzzle([{ row: 2, column: 1, borders: "R" }]).setPlayer(
       Players.Wolf,
       2,
       1
+    );
+
+    const move = WolfMoveGenerator(puzzle);
+
+    expect(move).toEqual(Moves.Stay);
+  });
+
+  test("On the same row and blocked left the Wolf stays", () => {
+    const puzzle = testPuzzle([{ row: 2, column: 3, borders: "L" }]).setPlayer(
+      Players.Wolf,
+      2,
+      3
     );
 
     const move = WolfMoveGenerator(puzzle);

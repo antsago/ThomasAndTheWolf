@@ -14,10 +14,10 @@ function vertically(thomasPosition, wolfPosition, wolfCell) {
 
 function horizontally(thomasPosition, wolfPosition, wolfCell) {
   if (thomasPosition.column < wolfPosition.column) {
-    return Moves.Left;
+    return wolfCell.borders.includes(Borders.Left) ? Moves.Stay : Moves.Left;
   }
   if (thomasPosition.column > wolfPosition.column) {
-    return wolfCell.borders.includes(Borders.Left) ? Moves.Stay : Moves.Right;
+    return wolfCell.borders.includes(Borders.Right) ? Moves.Stay : Moves.Right;
   }
 
   // In Thomas' cell already
