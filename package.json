@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "node build/index.js",
-    "build": "babel src --out-dir build",
+    "build": "rm -rf build && babel src --out-dir build",
     "test:watch": "jest --watch",
     "test": "jest",
     "lint": "eslint --fix .",
