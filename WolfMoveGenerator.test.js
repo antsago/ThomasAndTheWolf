@@ -20,6 +20,14 @@ function testPuzzle(initialConfig) {
 }
 
 describe("Wolf move generator", () => {
+  test("Wolf moves up towards Thomas", () => {
+    const puzzle = testPuzzle().setPlayer(Players.Wolf, 3, 2);
+
+    const move = WolfMoveGenerator(puzzle);
+
+    expect(move).toEqual(Moves.Up);
+  });
+
   test("Wolf moves down towards Thomas", () => {
     const puzzle = testPuzzle().setPlayer(Players.Wolf, 1, 2);
 
@@ -28,11 +36,11 @@ describe("Wolf move generator", () => {
     expect(move).toEqual(Moves.Down);
   });
 
-  test("Wolf moves up towards Thomas", () => {
-    const puzzle = testPuzzle().setPlayer(Players.Wolf, 3, 2);
+  test("Wolf moves right towards Thomas", () => {
+    const puzzle = testPuzzle().setPlayer(Players.Wolf, 2, 1);
 
     const move = WolfMoveGenerator(puzzle);
 
-    expect(move).toEqual(Moves.Up);
+    expect(move).toEqual(Moves.Right);
   });
 });

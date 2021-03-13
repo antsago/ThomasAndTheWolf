@@ -6,7 +6,10 @@ function WolfMoveGenerator(puzzle) {
   if (thomasCell.row < wolfCell.row) {
     return Moves.Up;
   }
-  return Moves.Down;
+  if (thomasCell.row > wolfCell.row) {
+    return Moves.Down;
+  }
+  return Moves.Right;
 }
 
 export default WolfMoveGenerator;
