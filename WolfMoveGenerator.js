@@ -26,7 +26,9 @@ function horizontally(thomasPosition, wolfPosition, wolfCell) {
 
 function diagonally(thomasPosition, wolfPosition, wolfCell) {
   if (thomasPosition.row < wolfPosition.row) {
-    return Moves.Up;
+    return wolfCell.borders.includes(Borders.Top)
+      ? horizontally(thomasPosition, wolfPosition, wolfCell)
+      : Moves.Up;
   }
   if (thomasPosition.row > wolfPosition.row) {
     return wolfCell.borders.includes(Borders.Bottom)
