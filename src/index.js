@@ -1,7 +1,6 @@
-import express from "express";
+import server from "./server";
 
 const PORT = 3000 || process.env.PORT;
 
-express()
-  .get("/", (req, res) => res.send("Hello world"))
-  .listen(PORT, () => console.log(`Server listening at port ${PORT}`));
+// eslint-disable-next-line no-console
+server.listen(PORT, () => console.log(`Server listening at port ${PORT}`));
