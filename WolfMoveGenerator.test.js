@@ -8,11 +8,15 @@ function testPuzzle(initialConfig) {
     thomas: { row: 2, column: 2 },
     wolf: { row: 1, column: 2 },
     layout: [
-      { row: 1, column: 2, borders: "TLR" },
-      { row: 2, column: 1, borders: "TBR" },
+      { row: 1, column: 1, borders: "TL" },
+      { row: 1, column: 2, borders: "T" },
+      { row: 1, column: 3, borders: "TR" },
+      { row: 2, column: 1, borders: "R" },
       { row: 2, column: 2, borders: "" },
-      { row: 2, column: 3, borders: "TBL" },
-      { row: 3, column: 2, borders: "RBL" },
+      { row: 2, column: 3, borders: "L" },
+      { row: 3, column: 1, borders: "BL" },
+      { row: 3, column: 2, borders: "B" },
+      { row: 3, column: 3, borders: "BR" },
     ],
     ...initialConfig,
   };
@@ -50,5 +54,21 @@ describe("Wolf move generator", () => {
     const move = WolfMoveGenerator(puzzle);
 
     expect(move).toEqual(Moves.Left);
+  });
+
+  test("When diagonally Wolf moves up towards Thomas", () => {
+    const puzzle = testPuzzle().setPlayer(Players.Wolf, 3, 3);
+
+    const move = WolfMoveGenerator(puzzle);
+
+    expect(move).toEqual(Moves.Up);
+  });
+
+  test("When diagonally Wolf moves down towards Thomas", () => {
+    const puzzle = testPuzzle().setPlayer(Players.Wolf, 1, 3);
+
+    const move = WolfMoveGenerator(puzzle);
+
+    expect(move).toEqual(Moves.Down);
   });
 });
