@@ -32,6 +32,7 @@ const server = express()
   // eslint-disable-next-line no-unused-vars
   .use((error, req, res, next) => {
     console.error(error); // eslint-disable-line no-console
+    res.status(500).send();
   });
 
 export default server;

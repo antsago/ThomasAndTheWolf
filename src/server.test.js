@@ -51,4 +51,12 @@ describe("Server", () => {
       })
       .expect(200, finalState);
   });
+
+  test("Handles errors gracefully", async () => {
+    return request(server)
+      .post("/game/load")
+      .set("Content-type", "application/json")
+      .send([{ foo: "bar" }])
+      .expect(500);
+  });
 });
