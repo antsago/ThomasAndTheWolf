@@ -21,8 +21,8 @@ class PuzzleFactory {
   static fromPuzzle(original) {
     const copy = new PuzzleBuilder(original.name, original.turn);
     copy.layout = original.layout;
-    copy[Players.Thomas] = original[Players.Thomas];
-    copy[Players.Wolf] = original[Players.Wolf];
+    copy[Players.Thomas] = original.thomas;
+    copy[Players.Wolf] = original.wolf;
     copy.turn = original.turn;
     copy.thomasState = original.thomasState;
 
