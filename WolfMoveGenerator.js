@@ -2,7 +2,7 @@ import { Borders, Moves, Players } from "./constants";
 
 function vertically(thomasPosition, wolfPosition, wolfCell) {
   if (thomasPosition.row < wolfPosition.row) {
-    return Moves.Up;
+    return wolfCell.borders.includes(Borders.Top) ? Moves.Stay : Moves.Up;
   }
   if (thomasPosition.row > wolfPosition.row) {
     return wolfCell.borders.includes(Borders.Bottom) ? Moves.Stay : Moves.Down;
@@ -29,7 +29,7 @@ function diagonally(thomasPosition, wolfPosition, wolfCell) {
     return Moves.Up;
   }
   if (thomasPosition.row > wolfPosition.row) {
-    return wolfCell.borders.includes(Borders.Bottom) ? Moves.Stay : Moves.Down;
+    return Moves.Down;
   }
 
   throw new Error("This should never happen");

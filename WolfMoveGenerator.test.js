@@ -74,10 +74,22 @@ describe("Wolf move generator", () => {
     expect(move).toEqual(Moves.Down);
   });
 
-  test("On the same column and blocked the Wolf stays", () => {
+  test("On the same column and blocked down the Wolf stays", () => {
     const puzzle = testPuzzle([{ row: 1, column: 2, borders: "B" }]).setPlayer(
       Players.Wolf,
       1,
+      2
+    );
+
+    const move = WolfMoveGenerator(puzzle);
+
+    expect(move).toEqual(Moves.Stay);
+  });
+
+  test("On the same column and blocked up the Wolf stays", () => {
+    const puzzle = testPuzzle([{ row: 3, column: 2, borders: "T" }]).setPlayer(
+      Players.Wolf,
+      3,
       2
     );
 
