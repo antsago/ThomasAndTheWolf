@@ -28,7 +28,7 @@ describe("Server", () => {
     return request(server)
       .post("/game/load")
       .set("Content-type", "application/json")
-      .send([config])
+      .send({ puzzles: [config] })
       .expect(200, [game]);
   });
 

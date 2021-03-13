@@ -7,7 +7,7 @@ const gameApi = express
     res
       .status(200)
       .json(
-        PuzzleFactory.fromConfigArray(req.body).map((puzzle) =>
+        PuzzleFactory.fromConfigArray(req.body.puzzles).map((puzzle) =>
           puzzle.getPuzzle()
         )
       )
@@ -32,7 +32,7 @@ const gameApi = express
 // Number of arguments marks this function as error handling
 // eslint-disable-next-line no-unused-vars
 function errorHandling(error, req, res, next) {
-  // console.error(error); // eslint-disable-line no-console
+  console.error(error); // eslint-disable-line no-console
   res.status(500).send();
 }
 
