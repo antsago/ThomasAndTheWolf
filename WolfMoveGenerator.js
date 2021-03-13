@@ -1,15 +1,18 @@
-import { Moves, Players } from "./constants";
+import { Borders, Moves, Players } from "./constants";
 
 function WolfMoveGenerator(puzzle) {
-  const thomasCell = puzzle[Players.Thomas];
-  const wolfCell = puzzle[Players.Wolf];
-  if (thomasCell.row < wolfCell.row) {
+  const thomasPosition = puzzle[Players.Thomas];
+  const wolfPosition = puzzle[Players.Wolf];
+
+  const wolfCell = puzzle.layout[wolfPosition.row][wolfPosition.column];
+
+  if (thomasPosition.row < wolfPosition.row) {
     return Moves.Up;
   }
-  if (thomasCell.row > wolfCell.row) {
-    return Moves.Down;
+  if (thomasPosition.row > wolfPosition.row) {
+    return wolfCell.borders.includes(Borders.Bottom) ? Moves.Stay : Moves.Down;
   }
-  if (thomasCell.column < wolfCell.column) {
+  if (thomasPosition.column < wolfPosition.column) {
     return Moves.Left;
   }
   return Moves.Right;

@@ -2,7 +2,7 @@ import { Players, Moves } from "./constants";
 import PuzzleFactory from "./PuzzleFactory";
 import WolfMoveGenerator from "./WolfMoveGenerator";
 
-function testPuzzle(initialConfig) {
+function testPuzzle(walls) {
   const baseConfig = {
     name: "testPuzzle",
     thomas: { row: 2, column: 2 },
@@ -18,8 +18,10 @@ function testPuzzle(initialConfig) {
       { row: 3, column: 2, borders: "B" },
       { row: 3, column: 3, borders: "BR" },
     ],
-    ...initialConfig,
   };
+  if (walls) {
+    baseConfig.layout = [...baseConfig.layout, ...walls];
+  }
   return PuzzleFactory.fromConfig(baseConfig);
 }
 
@@ -70,5 +72,17 @@ describe("Wolf move generator", () => {
     const move = WolfMoveGenerator(puzzle);
 
     expect(move).toEqual(Moves.Down);
+  });
+
+  test("On the same column and blocked the Wolf stays", () => {
+    const puzzle = testPuzzle([{ row: 1, column: 2, borders: "B" }]).setPlayer(
+      Players.Wolf,
+      1,
+      2
+    );
+
+    const move = WolfMoveGenerator(puzzle);
+
+    expect(move).toEqual(Moves.Stay);
   });
 });
