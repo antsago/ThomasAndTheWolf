@@ -8,7 +8,11 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
+  "ignorePatterns": ["node_modules", "build"],
   "rules": {
-    "jest/expect-expect": ["error", { "assertFunctionNames": ["expect", "request.**.expect"] }]
+    "jest/expect-expect": [
+      "error",
+      { "assertFunctionNames": ["expect", "request.**.expect"] }
+    ]
   }
 }
