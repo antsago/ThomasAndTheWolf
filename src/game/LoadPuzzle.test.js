@@ -37,7 +37,7 @@ function samplePuzzle(customPuzzle, customExpected) {
   return { initial, expected };
 }
 
-// These tests should be split into PuzzleFactory and Puzzle builders
+// These tests should be split into PuzzleFactory and PuzzleBuilder
 // to make them smaller (test only one thing) and easier to understand
 describe("Load puzzle", () => {
   test("Handles base puzzle", () => {
